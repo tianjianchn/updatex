@@ -65,20 +65,6 @@ describe('updatex', function () {
     assert(!obj2.$updatex);
   });
 
-  describe('options', function () {
-    it('should work with multiArgs option', function () {
-      const obj = { a: 1 };
-      updatex(obj, (...args) => {
-        assert.strictEqual(args.length, 1);
-      });
-
-      updatex(obj, (...args) => {
-        assert.strictEqual(args.length, 3);
-        assert.deepStrictEqual(args.slice(1), ['a', 'b']);
-      }, { multiArgs: ['a', 'b'] });
-    });
-  });
-
   describe('config: freeze = false', function () {
     before(function () {
       updatex.config('freeze', false);
