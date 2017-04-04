@@ -2,6 +2,7 @@
 import assert from 'assert';
 import updatex from '..';
 import { stringify } from '../dist/util';
+import { isReadOnly } from '../dist/readonly';
 import { shouldThrow, shouldImmutable } from './helper';
 
 describe('updatex', function () {
@@ -29,6 +30,24 @@ describe('updatex', function () {
     });
 
     shouldImmutable(arr, [1], arr2, [1, 2]);
+  });
+  it('should work with object and array mixed', function () {
+    const obj = { a: [{ b: { c: 1 } }] };
+    const obj2 = updatex(obj, (newObj) => {
+      const first = newObj.select('a.0');
+
+      assert(isReadOnly(first.b));
+      assert(isReadOnly(newObj.a[0].b));
+      assert(!isReadOnly(first));
+      assert(!isReadOnly(newObj.a[0]));
+      assert(!isReadOnly(newObj.a));
+
+      first.name = 'tj';
+
+      newObj.a.push(2);
+    });
+    shouldImmutable(obj, { a: [{ b: { c: 1 } }] },
+      obj2, { a: [{ b: { c: 1 }, name: 'tj' }, 2] });
   });
   it('should not take care the return of callback', function () {
     const obj = { a: 1 };
