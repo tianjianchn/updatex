@@ -1,0 +1,46 @@
+{
+  "name": "updatex",
+  "version": "0.1.0",
+  "description": "Immutable and predictive to update json data",
+  "scripts": {
+    "lint": "eslint src test",
+    "clean": "/bin/rm -rf dist",
+    "build": "npm run clean && babel -D -d dist src",
+    "watch": "npm run clean && babel -w -D -d dist src",
+    "test:only": "mocha --timeout 10000 --recursive --bail -r test/require.js --reporter spec test/**/*.test.js",
+    "test": "npm run build && npm run lint && npm run test:only",
+    "cover:compiled": "istanbul cover _mocha -- -r test/require.js --reporter spec test/**/*.test.js",
+    "cover": "npm run build -- --source-maps inline && npm run cover:compiled",
+    "benchmark": "node -r babel-register -r regenerator-runtime/runtime performance/benchmark-spread.js",
+    "perf": "node -r babel-register -r regenerator-runtime/runtime performance/readonly.js",
+    "prepublish": "npm test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-full-node4": "^1.0.4",
+    "babel-preset-react": "^6.23.0",
+    "babel-register": "^6.18.0",
+    "eslint-config-easy": "^0.6.6",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^3.2.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tian Jian",
+    "email": "tianjianchn@qq.com"
+  },
+  "homepage": "https://github.com/tianjianchn/updatex",
+  "repository": "https://github.com/tianjianchn/updatex",
+  "bugs": "https://github.com/tianjianchn/updatex/issues",
+  "keywords": [
+    "readonly",
+    "immutable",
+    "json",
+    "array",
+    "object",
+    "plain object",
+    "predictive"
+  ]
+}

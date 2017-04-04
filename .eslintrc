@@ -1,0 +1,7 @@
+{
+  "extends": "easy",
+  "rules": {
+    "no-underscore-dangle": "off",
+    "no-prototype-builtins": "off",
+  }
+}

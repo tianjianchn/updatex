@@ -1,0 +1,4 @@
+{
+  "presets": ["full-node4", "react", "es2015"],
+  "plugins": ["transform-class-properties"]
+}
