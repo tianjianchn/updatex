@@ -5,12 +5,14 @@ Immutable and predictive to update json data
 ```js
 import updatex from 'updatex';
 
-const obj = { a: {b: {c: 1}};
+const obj = { a: { b: { c: {d: 1} } } };
 
-const obj2 = updatex(obj, (newObj)=>{
+const obj2 = updatex(obj, (newObj) => {
   const b = newObj.select('a.b');
-  b.c = 2;
-})
+  b.name = 'tj';
+
+  b.c.d = 2; // will throw in development enviroment, as b.c is frozen
+});
 ```
 
 ### Why?
@@ -22,10 +24,10 @@ These two reasons above bring `updatex`.
 ### Features
 * Internally use spread syntax(`...`) to copy value, then you can directy mutate the value
 * Auto freeze the original value in development environment, but off in production environment
-* Ahead declare the path you will mutate on, to constrain the mutation scope
-* Auto check over-selecting path on the end, and warn if occured
+* Predictive mutation by declare the mutation-probable path ahead(`obj.select('a.b.c')`)
+* Auto check and warn over-select at the end
 * No more repeated data clone, you are forced to do mutations in a batch mode
-* No need to reassign the new value and return at last
+* No need to reassign the new value(`obj = obj.set(k, v)`) and return it at last
 
 ### Installation
 ```js
@@ -33,7 +35,7 @@ yarn add updatex
 ```
 or if your'd like to use npm:
 ```js
-npm install updatex
+npm install updatex -S
 ```
 
 ### API
@@ -44,12 +46,12 @@ Do mutation on input data. Only works with plain object and array, others will r
 #### select(path: string|array)
 Declare the path you will mutate on, all nodes on the path will be cloned. Then you can use assignment syntax(`=`) and other mutation methods to manipulate the nodes.
 ```js
-updatex(state, (newState)=>{
+updatex(state, (newState) => {
   const user = newState.select('users.0');
-  user.name = 'Tian'
+  user.name = 'Tian';
 
-  newState.users.push({name: 'Jian'})
-})
+  newState.users.push({ name: 'Jian' });
+});
 ```
 
 #### config(name, value)
@@ -59,7 +61,6 @@ Set the config. Currently only one config: `freeze`.
 ```js
 updatex.config('freeze', false);
 ```
-
 
 ### Contributing
 Checkout the [CONTRIBUTING.md](/CONTRIBUTING.md) if you want to help
