@@ -6,7 +6,7 @@ const NON_EXIST_VAL = { };
 
 // Make all nodes on the key path are mutable(clone them first)
 export default function select(keyPath) {
-  const keys = parseKeyPath(keyPath) || [];
+  const keys = parseKeyPath(keyPath);
 
   // node on the path, it is always mutable,
   // which is cloned and safe to mutate directly

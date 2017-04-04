@@ -10,7 +10,7 @@
     "test:only": "mocha --timeout 10000 --recursive --bail -r test/require.js --reporter spec test/**/*.test.js",
     "test": "npm run build && npm run lint && npm run test:only",
     "cover:compiled": "istanbul cover _mocha -- -r test/require.js --reporter spec test/**/*.test.js",
-    "cover": "npm run build -- --source-maps inline && npm run cover:compiled",
+    "cover": "npm run build -- --source-maps inline && npm run cover:compiled && open coverage/lcov-report/index.html",
     "benchmark": "node -r babel-register -r regenerator-runtime/runtime performance/benchmark-spread.js",
     "prepublish": "npm test"
   },
