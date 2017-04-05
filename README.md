@@ -5,13 +5,14 @@ Immutable and predictive to update json data
 ```js
 import updatex from 'updatex';
 
-const obj = { a: { b: { c: {d: 1} } } };
+const obj = { a: { b: { c: { d: 1 } } } };
 
 const obj2 = updatex(obj, (newObj) => {
   const b = newObj.select('a.b');
-  b.name = 'tj';
+  b.name = 'tj';// It's ok too
+  newObj.a.name = 'tj'; // It's ok too
 
-  b.c.d = 2; // will throw in development enviroment, as b.c is frozen
+  b.c.d = 2; // Will throw in development enviroment, as b.c is frozen
 });
 ```
 
